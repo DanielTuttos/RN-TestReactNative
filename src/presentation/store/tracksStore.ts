@@ -1,16 +1,13 @@
 import {create} from 'zustand';
-// import {
-//   authCheckStatus,
-//   authLogin,
-//   registerUser,
-// } from '../../../actions/auth/auth';
-// import {StorageAdapter} from '../../../config/adapter/storage-adapter';
-import {Track} from '../../domain/entities/tracks';
-import {getTracksFromCountry} from '../../actions/get-track';
+import {Track, TrackInfo} from '../../domain/entities/tracks';
+import {getTracksFromCountry, getTrackById} from '../../actions/get-track';
 
 export interface TracksState {
   tracksCountry: Country;
+  trackInfo?: TrackInfo;
   getTracksCountry: () => Promise<void>;
+  getTrackById: (id: string) => Promise<void>;
+  clearTrack: () => void;
 }
 
 export interface Country {
@@ -22,6 +19,7 @@ export interface Country {
 
 export const useTracksStore = create<TracksState>()((set, get) => ({
   tracksCountry: {ecuador: [], peru: [], mexico: [], spain: []},
+  trackInfo: undefined,
   getTracksCountry: async () => {
     const {tracksCountry} = get();
     const allPromiseGet = Object.keys(tracksCountry).map(key =>
@@ -34,5 +32,13 @@ export const useTracksStore = create<TracksState>()((set, get) => ({
     const [ecuador, peru, mexico, spain] = resp;
     // await StorageAdapter.setItem('token', resp.token);
     set({tracksCountry: {ecuador, peru, mexico, spain}});
+  },
+  getTrackById: async (id: string) => {
+    const track = await getTrackById(id);
+    if (!track) return;
+    set({trackInfo: track});
+  },
+  clearTrack: () => {
+    set({trackInfo: undefined});
   },
 }));

@@ -4,3 +4,9 @@ export interface Track {
   artistName: string;
   image: string;
 }
+
+export interface TrackInfo extends Track {
+  album: string;
+  published: string;
+  description: string;
+}

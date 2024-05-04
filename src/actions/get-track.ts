@@ -1,6 +1,9 @@
 import {lastFmApi} from '../config/api/lastFmAPI';
-import {Track} from '../domain/entities/tracks';
-import {TrackResponse} from '../infrastructure/interfaces/tracks-lastfm-api';
+import {Track, TrackInfo} from '../domain/entities/tracks';
+import {
+  TrackResponse,
+  TrackResponseInfo,
+} from '../infrastructure/interfaces/tracks-lastfm-api';
 import {TrackMapper} from '../infrastructure/mappers/track.mapper';
 
 export const getTracksFromCountry = async (
@@ -17,10 +20,26 @@ export const getTracksFromCountry = async (
     const track = data.tracks.track.map(track =>
       TrackMapper.trackMapperToEntity(track),
     );
-    // console.log('track: ', track[0]);
-    return track || [];
+
+    return track;
   } catch (error) {
     console.log('error: ', {error});
-    throw new Error(`Error when obtaining music by country ${country}`)
+    throw new Error(`Error when obtaining music by country ${country}`);
+  }
+};
+
+export const getTrackById = async (id: string): Promise<TrackInfo> => {
+  try {
+    const {data} = await lastFmApi.get<TrackResponseInfo>('2.0/', {
+      params: {
+        method: 'track.getInfo',
+        mbid: id,
+      },
+    });
+    const track = TrackMapper.trackInfoMapperToEntity(data.track);
+    return track;
+  } catch (error) {
+    console.log('error getTrack: ', {error});
+    throw new Error(`Error getting music by id ${id}`);
   }
 };

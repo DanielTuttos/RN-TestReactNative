@@ -8,12 +8,12 @@ export const colors = {
 };
 
 interface Letters {
-  h1: StyleProp<TextStyle>;
-  h1Regular: StyleProp<TextStyle>;
-  h2: StyleProp<TextStyle>;
-  h2Regular: StyleProp<TextStyle>;
-  caption: StyleProp<TextStyle>;
-  info: StyleProp<TextStyle>;
+  h1: TextStyle;
+  h1Regular: TextStyle;
+  h2: TextStyle;
+  h2Regular: TextStyle;
+  caption: TextStyle;
+  info: TextStyle;
 }
 
 export const text: Letters = {
@@ -48,6 +48,5 @@ export const text: Letters = {
     fontSize: 12,
     fontFamily: 'Roboto',
     color: colors.primaryTextColor,
-  }
-
+  },
 };

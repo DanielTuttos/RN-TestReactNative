@@ -31,7 +31,9 @@ export const MainScreen = ({
       case 'Main':
         return (
           <View style={[styles.header, styles.headerMain]}>
-            <Text style={[text.h1]}>{textHeader}</Text>
+            <Text numberOfLines={1} style={[text.h1]}>
+              {textHeader}
+            </Text>
             <Avatar />
           </View>
         );
@@ -44,7 +46,9 @@ export const MainScreen = ({
                 style={{width: 22, height: 22}}
               />
             </Pressable>
-            <Text style={[text.h1]}>{textHeader}</Text>
+            <Text numberOfLines={1} style={[text.h1, {width: '70%'}]}>
+              {textHeader}
+            </Text>
             <View style={{width: 22}} />
           </View>
         );

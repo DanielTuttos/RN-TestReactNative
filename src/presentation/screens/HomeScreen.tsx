@@ -1,4 +1,4 @@
-import {FlatList, Pressable, Text} from 'react-native';
+import {ActivityIndicator, FlatList, Pressable, Text, View} from 'react-native';
 import {MainScreen, TrackCard} from '../components';
 import {Country, useTracksStore} from '../store/tracksStore';
 import {useEffect} from 'react';
@@ -17,26 +17,31 @@ export const HomeScreen = () => {
 
   return (
     <MainScreen textHeader="Playlists">
-      {Object.keys(tracksCountry).map(key => (
-        <>
+      {Object.keys(tracksCountry).map((key, index) => (
+        <View key={key + index}>
           <Text style={[text.h2, {paddingVertical: 10}]}>
             Top musics {key.toLocaleUpperCase()}
           </Text>
-          <FlatList
-            key={key}
-            data={tracksCountry[key as keyof Country]}
-            renderItem={({item}) => (
-              <Pressable
-                onPress={() =>
-                  navigation.navigate('DetailScreen', {idTrack: item.id})
-                }>
-                <TrackCard track={item} />
-              </Pressable>
-            )}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          />
-        </>
+          {tracksCountry[key as keyof Country].length === 0 ? (
+            <ActivityIndicator style={{height: 170}} />
+          ) : (
+            <FlatList
+              keyExtractor={item => item.id}
+              key={key}
+              data={tracksCountry[key as keyof Country]}
+              renderItem={({item}) => (
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('DetailScreen', {idTrack: item.id})
+                  }>
+                  <TrackCard track={item} />
+                </Pressable>
+              )}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            />
+          )}
+        </View>
       ))}
     </MainScreen>
   );
