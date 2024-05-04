@@ -3,6 +3,7 @@ import {
   Image,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StyleProp,
   StyleSheet,
   Text,
@@ -55,7 +56,12 @@ export const MainScreen = ({
   return (
     <SafeAreaView style={[styles.mainContainer, style]}>
       <CustomHeader />
-      <View style={{paddingHorizontal: 18, paddingTop: 20}}>{children}</View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{paddingHorizontal: 18, paddingTop: 20}}>
+        {children}
+        <View style={{height: 70}} />
+      </ScrollView>
     </SafeAreaView>
   );
 };
