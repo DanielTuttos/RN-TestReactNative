@@ -1,9 +1,12 @@
 import {Text, View} from 'react-native';
+import {MainScreen} from '../components';
 
 export const HomeScreen = () => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
-    </View>
+    <MainScreen textHeader='Playlists'>
+      <View>
+        <Text>HomeScreen</Text>
+      </View>
+    </MainScreen>
   );
 };
