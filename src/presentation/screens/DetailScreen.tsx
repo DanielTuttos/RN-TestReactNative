@@ -28,7 +28,14 @@ export const DetailScreen = ({navigation, route}: Props) => {
       }}>
       <View style={styles.container}>
         {/* image */}
-        <Image source={{uri: trackInfo?.image}} style={styles.image} />
+        <Image
+          source={{
+            uri:
+              trackInfo?.image ||
+              'https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png',
+          }}
+          style={styles.image}
+        />
         {/* text album and artist */}
         <View style={styles.containerTexts}>
           <View style={styles.textInfoWidth}>

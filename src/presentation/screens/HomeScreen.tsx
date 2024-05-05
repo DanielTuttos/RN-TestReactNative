@@ -16,7 +16,9 @@ export const HomeScreen = () => {
   }, []);
 
   return (
-    <MainScreen textHeader="Playlists">
+    <MainScreen
+      textHeader="Playlists"
+      onPressProfile={() => navigation.navigate('ProfileScreen')}>
       {Object.keys(tracksCountry).map((key, index) => (
         <View key={key + index}>
           <Text style={[text.h2, {paddingVertical: 10}]}>

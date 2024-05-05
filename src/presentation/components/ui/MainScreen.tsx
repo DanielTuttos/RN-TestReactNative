@@ -16,7 +16,9 @@ interface Props extends PropsWithChildren {
   style?: StyleProp<ViewStyle>;
   header?: 'Main' | 'withBack';
   textHeader: string;
+  withScroll?: boolean;
   onPressBack?: () => void;
+  onPressProfile?: () => void;
 }
 
 export const MainScreen = ({
@@ -24,7 +26,9 @@ export const MainScreen = ({
   style,
   header = 'Main',
   textHeader,
+  withScroll = true,
   onPressBack = undefined,
+  onPressProfile = undefined,
 }: Props) => {
   const CustomHeader = () => {
     switch (header) {
@@ -34,7 +38,9 @@ export const MainScreen = ({
             <Text numberOfLines={1} style={[text.h1]}>
               {textHeader}
             </Text>
-            <Avatar />
+            <Pressable onPress={onPressProfile}>
+              <Avatar />
+            </Pressable>
           </View>
         );
       case 'withBack':
@@ -60,12 +66,18 @@ export const MainScreen = ({
   return (
     <SafeAreaView style={[styles.mainContainer, style]}>
       <CustomHeader />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{paddingHorizontal: 18, paddingTop: 20}}>
-        {children}
-        <View style={{height: 70}} />
-      </ScrollView>
+      {withScroll ? (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.container}>
+          {children}
+          <View style={{height: 70}} />
+        </ScrollView>
+      ) : (
+        <View style={styles.container}>
+          {children}
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -73,6 +85,10 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: colors.primaryBackground,
+  },
+  container: {
+    paddingHorizontal: 18,
+    paddingTop: 20,
   },
   header: {
     paddingHorizontal: 18,
