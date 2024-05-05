@@ -31,8 +31,7 @@ export const DetailScreen = ({navigation, route}: Props) => {
         <Image
           source={{
             uri:
-              trackInfo?.image ||
-              'https://wpdirecto.com/wp-content/uploads/2017/08/alt-de-una-imagen.png',
+              trackInfo?.image
           }}
           style={styles.image}
         />
